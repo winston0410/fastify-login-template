@@ -1,13 +1,19 @@
-// Update with your config settings.
-import dotenv from 'dotenv';
+import  dotenv from 'dotenv';
 dotenv.config();
 
-module.exports = {
-
+export default {
   development: {
-    client: "sqlite3",
+    client: 'postgresql',
     connection: {
-      filename: "./dev.sqlite3"
+      database: process.env.DB_NAME,
+      user:     process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD
+    },
+    migrations: {
+      directory: "./migrations"
+    },
+    seeds: {
+      directory: "./seeds"
     }
   },
 
@@ -42,5 +48,4 @@ module.exports = {
       tableName: "knex_migrations"
     }
   }
-
 };

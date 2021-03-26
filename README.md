@@ -1,7 +1,7 @@
-# Express REST API Template
+# Fastify REST API with login
 
-## Why this package is used?
+## Benchmark
 
-`node-dev`
-
-For hot module reload during development
+```shell
+autocannon -c 3000 -d 30 http://localhost:8080
+```

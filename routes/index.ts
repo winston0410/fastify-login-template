@@ -1,12 +1,12 @@
-async function routes (fastify, options) {
-  fastify.get('/', async (request, reply) => {
+import { FastifyRequest, FastifyReply, FastifyInstance, FastifyPluginOptions }from 'fastify';
+import userController from 'controllers/UserController'
+
+async function routes (fastify: FastifyInstance, options: FastifyPluginOptions) {
+  fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
     return { hello: 'world2' }
   })
 
-  fastify.post('/login', async (req, res) => {
-    const { username, password } = req.body
-    return { hello: 'login route' }
-  })
+  fastify.post('/login', userController.login)
 }
 
 export default routes

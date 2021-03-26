@@ -3,21 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon index.ts"
+    "start": "nodemon index.ts",
+    "dev": "nodemon app.ts",
+    "test": "yarn jest --detectOpenHandles"
   },
   "dependencies": {
+    "@types/jest": "^26.0.21",
     "debug": "4.3.1",
     "fastify": "^3.13.0",
     "jwt-simple": "^0.5.6",
-    "permit": "^0.2.4"
+    "permit": "^0.2.4",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
   },
   "devDependencies": {
-    "@types/node": "^14.14.35",
+    "@types/node": "^14.14.36",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
+    "jest": "^26.6.3",
     "knex": "^0.95.2",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
+    "supertest": "^6.1.3",
     "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.3"
   }
 }
