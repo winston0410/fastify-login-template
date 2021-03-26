@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon index.ts",
-    "dev": "nodemon app.ts",
+    "dev": "nodemon index.ts",
     "test": "NODE_ENV=development yarn jest --detectOpenHandles"
   },
   "dependencies": {

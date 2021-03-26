@@ -14,14 +14,4 @@ const app: FastifyInstance = fastify({
 app.register(import('./routes/index'))
 app.register(import('./routes/protected'))
 
-// Run the server!
-app.listen(8080, function (err, address) {
-  if (err) {
-    //@ts-ignore
-    app.log.error(err)
-    process.exit(1)
-  }
-  app.log.info(`server listening on ${address}`)
-})
-
 export default app;
