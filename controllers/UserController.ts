@@ -6,11 +6,12 @@ import { checkPassword } from 'hash'
 
 const userController = {
   login: async (request: FastifyRequest, reply: FastifyReply) => {
+
     //@ts-ignore
     const { username, password } = request.body
 
     if(!username || !password){
-      reply.code(401).send({
+      reply.code(400).send({
         message: "Missing username or password"
       })
       return

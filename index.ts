@@ -1,7 +1,7 @@
 import cluster from 'cluster'
 import app from 'app'
 
-if (cluster.isMaster) {
+if (cluster.isMaster && process.env.NODE_ENV !== 'development') {
 
     // Count the machine's CPUs
     const cpuCount = require('os').cpus().length;
