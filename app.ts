@@ -6,6 +6,8 @@ const app: FastifyInstance = fastify({
   logger: true
 })
 
+app.register(import("fastify-etag"))
+
 // app.addHook('onRequest', (request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
 //   const { accept } = request.headers
 //   done()

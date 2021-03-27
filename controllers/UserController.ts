@@ -6,6 +6,12 @@ import { checkPassword } from 'hash'
 
 const userController = {
   login: async (request: FastifyRequest, reply: FastifyReply) => {
+    if(!request.body){
+      reply.code(400).send({
+        message: "Missing request body"
+      })
+      return
+    }
 
     //@ts-ignore
     const { username, password } = request.body
