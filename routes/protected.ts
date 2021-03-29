@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply, FastifyInstance, FastifyPluginOptions } f
 import {
   isLoggedIn
 } from 'guards'
+import userController from 'controllers/UserController'
 
 async function routes (fastify: FastifyInstance, options : FastifyPluginOptions) {
   fastify.decorateRequest('user', {})
@@ -9,8 +10,10 @@ async function routes (fastify: FastifyInstance, options : FastifyPluginOptions)
   fastify.addHook('preHandler', isLoggedIn)
 
   fastify.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-    return { protected: 'this is the protected content' }
+    reply.compress({ protected: 'this is the protected content' })
   })
+
+  fastify.delete('/users/:id', userController.deleteAccount)
 }
 
 export default routes

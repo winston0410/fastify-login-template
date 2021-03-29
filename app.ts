@@ -7,7 +7,7 @@ const app: FastifyInstance = fastify({
 })
 
 app.register(import("fastify-etag"))
-app.register(import('fastify-compress'))
+app.register(import('fastify-compress'), { threshold: 1024 })
 app.register(import('better-fastify-405'), {
   routes: [
     import('./routes/index'),

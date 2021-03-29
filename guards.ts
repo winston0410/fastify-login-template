@@ -17,7 +17,7 @@ async function isLoggedIn(request: FastifyRequest, reply:FastifyReply, done: Hoo
 
     const { username } = jwtSimple.decode(token,jwt.jwtSecret);
     console.log('check jwt token result', jwtSimple.decode(token,jwt.jwtSecret))
-    const user = userService.getUser(username)
+    const user = await userService.getUser(username)
 
     if (!user) {
       reply.code(401).send({
