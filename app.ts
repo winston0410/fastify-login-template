@@ -1,19 +1,18 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import fastify, { FastifyRequest, FastifyReply, FastifyInstance, HookHandlerDoneFunction } from 'fastify';
+import fastify, { FastifyRequest, FastifyReply, FastifyInstance, HookHandlerDoneFunction, RouteOptions } from 'fastify';
 
 const app: FastifyInstance = fastify({
   logger: true
 })
 
 app.register(import("fastify-etag"))
-
-// app.addHook('onRequest', (request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
-//   const { accept } = request.headers
-//   done()
-// })
-
-app.register(import('./routes/index'))
-app.register(import('./routes/protected'))
+app.register(import('fastify-compress'))
+app.register(import('better-fastify-405'), {
+  routes: [
+    import('./routes/index'),
+    import('./routes/protected')
+  ]
+})
 
 export default app;
