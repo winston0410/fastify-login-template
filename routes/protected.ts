@@ -13,7 +13,8 @@ async function routes (fastify: FastifyInstance, options : FastifyPluginOptions)
     reply.compress({ protected: 'this is the protected content' })
   })
 
-  fastify.delete('/users/:id', userController.deleteAccount)
+  fastify.delete('/users/:id', userController.deleteUser)
+  fastify.put('/users/:id', userController.updateUser)
 }
 
 export default routes

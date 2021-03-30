@@ -14,6 +14,24 @@ const userService = {
   },
   deleteUser: async function (id: number){
     return (await knex('users').where('id', id).del())
+  },
+  updateUser: async function (id: number, username: string, password: string){
+    return (await knex('users')
+    .where('id', id)
+    .returning(['id', 'username'])
+    .update({
+      username,
+      password
+    }))[0]
+  },
+  updateUsername: async function (id: number, username: string){
+    // return (await knex('users')
+    // .where('id', id)
+    // .update())
+  },
+  updatePassword: async function (id: number, password: string){
+    // return (await knex('users')
+    // .where('id', 'id'))
   }
 }
 

@@ -16,7 +16,7 @@ async function isLoggedIn(request: FastifyRequest, reply:FastifyReply, done: Hoo
     }
 
     const { username } = jwtSimple.decode(token,jwt.jwtSecret);
-    console.log('check jwt token result', jwtSimple.decode(token,jwt.jwtSecret))
+
     const user = await userService.getUser(username)
 
     if (!user) {
@@ -31,6 +31,9 @@ async function isLoggedIn(request: FastifyRequest, reply:FastifyReply, done: Hoo
 
   } catch (e) {
     console.log(e)
+    reply.code(401).send({
+      message: 'Authentication invalid'
+    })
     // logger.error(e.toString());
   }
 }

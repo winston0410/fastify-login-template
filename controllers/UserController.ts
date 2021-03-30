@@ -85,7 +85,7 @@ const register = async (request: RequestWithCredential, reply: FastifyReply) => 
   })
 }
 
-const deleteAccount = async(request, reply: FastifyReply) => {
+const deleteUser = async(request, reply: FastifyReply) => {
   if(request.params.id !== request.user.id){
     reply
     .code(403)
@@ -97,10 +97,40 @@ const deleteAccount = async(request, reply: FastifyReply) => {
   reply.code(204)
 }
 
+const updateUser = async(request, reply: FastifyReply) => {
+  if(!request.body?.username || !request.body?.password){
+    reply.code(400).send({
+      message: "Missing username or password"
+    })
+    return
+  }
+
+  const { username, password } = request.body
+
+  const updatedUser = await userService.updateUser(request.user.id, username, await hashPassword(password))
+
+  const payload = {
+      //@ts-ignore
+      id: updatedUser.id,
+      //@ts-ignore
+      username: updatedUser.username
+  };
+
+  const token = jwtSimple.encode(payload, jwt.jwtSecret);
+
+  reply
+  .code(200)
+  .send({
+    username: updatedUser.username,
+    token: token
+  })
+}
+
 const userController = {
   login,
   register,
-  deleteAccount
+  deleteUser,
+  updateUser
 }
 
 export default userController
