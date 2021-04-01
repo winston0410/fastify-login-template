@@ -1,15 +1,16 @@
-version: "3"
+version: "3.8"
 
 services:
   backend:
     build:
       context: .
+      target: development
     image: hugo/fastify:1.0
     env_file: .env
     ports:
       - 8080:8080
-    restart: always
-    command: yarn start
+    volumes:
+      - ./:/app
     depends_on:
       - pg
   pg:
