@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: .
+    image: hugo/fastify:1.0
+    env_file: .env
+    ports:
+      - 8080:8080
+    restart: always
+    command: yarn start
+    depends_on:
+      - pg
+  pg:
+    image: postgres:latest
+    ports:
+      - 5432:5432
