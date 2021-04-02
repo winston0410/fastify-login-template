@@ -5,6 +5,7 @@ export default {
   development: {
     client: 'postgresql',
     connection: {
+      host: 'pg', //Need to use the service name from docker
       database: process.env.DB_NAME,
       user:     process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD

@@ -19,4 +19,4 @@ FROM base as development
 ENV NODE_ENV=development
 RUN pnpm install --frozen-lockfile
 USER node
-CMD pnpm run dev
+CMD npx knex migrate:latest && npx knex seed:run && pnpm run dev
