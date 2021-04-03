@@ -13,7 +13,7 @@ services:
     depends_on:
       - pg
   pg:
-    image: postgres:latest
+    image: postgres:13
     ports:
       - 5432:5432
     environment:
