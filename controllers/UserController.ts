@@ -3,6 +3,7 @@ import userService from 'services/UserService'
 import jwtSimple from 'jwt-simple'
 import jwt from 'loaders/jwt'
 import { hashPassword, checkPassword } from 'hash'
+import User from 'models/User'
 
 type RequestWithCredential = FastifyRequest<{
   Body: {
@@ -11,21 +12,7 @@ type RequestWithCredential = FastifyRequest<{
   }
 }>
 
-interface User {
-  id: number,
-  username: string,
-  password: string
-}
-
 const login = async (request: RequestWithCredential, reply: FastifyReply) => {
-
-  if(!request.body?.username || !request.body?.password){
-    reply.code(400).send({
-      message: "Missing username or password"
-    })
-    return
-  }
-
   const { username, password } = request.body
 
   const user: User = await userService.getUser(username);
@@ -47,13 +34,6 @@ const login = async (request: RequestWithCredential, reply: FastifyReply) => {
 }
 
 const register = async (request: RequestWithCredential, reply: FastifyReply) => {
-  if(!request.body?.username || !request.body?.password){
-    reply.code(400).send({
-      message: "Missing username or password"
-    })
-    return
-  }
-
   const { username, password } = request.body
 
   const existingUser = await userService.getUser(username);
@@ -86,25 +66,11 @@ const register = async (request: RequestWithCredential, reply: FastifyReply) => 
 }
 
 const deleteUser = async(request, reply: FastifyReply) => {
-  if(request.params.id !== request.user.id){
-    reply
-    .code(403)
-    .send({
-      message: 'You can only delete your account.'
-    })
-  }
   await userService.deleteUser(request.user.id)
   reply.code(204)
 }
 
 const updateUser = async(request, reply: FastifyReply) => {
-  if(!request.body?.username || !request.body?.password){
-    reply.code(400).send({
-      message: "Missing username or password"
-    })
-    return
-  }
-
   const { username, password } = request.body
 
   const updatedUser = await userService.updateUser(request.user.id, username, await hashPassword(password))

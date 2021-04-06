@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply, FastifyInstance, FastifyPluginOptions } from 'fastify';
-import {
-  isLoggedIn
-} from 'guards'
+import isLoggedIn from 'guards/isLoggedIn'
+import isOwner from 'guards/isOwner'
 import userController from 'controllers/UserController'
+import bodySchema from 'schemas/users'
 
 async function routes (fastify: FastifyInstance, options : FastifyPluginOptions) {
   fastify.decorateRequest('user', {})
@@ -13,8 +13,10 @@ async function routes (fastify: FastifyInstance, options : FastifyPluginOptions)
     reply.compress({ protected: 'this is the protected content' })
   })
 
+  fastify.addHook('preHandler', isOwner)
+
   fastify.delete('/users/:id', userController.deleteUser)
-  fastify.put('/users/:id', userController.updateUser)
+  fastify.put('/users/:id', { schema: bodySchema }, userController.updateUser)
 }
 
 export default routes

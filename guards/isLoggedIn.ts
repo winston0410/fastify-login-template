@@ -24,7 +24,7 @@ async function isLoggedIn(request: FastifyRequest, reply:FastifyReply, done: Hoo
         message: 'Authentication invalid'
       })
     }
-    //@ts-ignore
+    // @ts-ignore
     request.user = user
 
     done()
@@ -34,8 +34,7 @@ async function isLoggedIn(request: FastifyRequest, reply:FastifyReply, done: Hoo
     reply.code(401).send({
       message: 'Authentication invalid'
     })
-    // logger.error(e.toString());
   }
 }
 
-export { isLoggedIn };
+export default isLoggedIn;
