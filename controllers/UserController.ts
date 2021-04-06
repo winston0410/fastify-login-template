@@ -12,6 +12,10 @@ type RequestWithCredential = FastifyRequest<{
   }
 }>
 
+interface RequestWithUser extends RequestWithCredential {
+  user: User
+}
+
 const login = async (request: RequestWithCredential, reply: FastifyReply) => {
   const { username, password } = request.body
 
@@ -65,20 +69,18 @@ const register = async (request: RequestWithCredential, reply: FastifyReply) => 
   })
 }
 
-const deleteUser = async(request, reply: FastifyReply) => {
+const deleteUser = async(request: RequestWithUser, reply: FastifyReply) => {
   await userService.deleteUser(request.user.id)
   reply.code(204)
 }
 
-const updateUser = async(request, reply: FastifyReply) => {
+const updateUser = async(request: RequestWithUser, reply: FastifyReply) => {
   const { username, password } = request.body
 
   const updatedUser = await userService.updateUser(request.user.id, username, await hashPassword(password))
 
   const payload = {
-      //@ts-ignore
       id: updatedUser.id,
-      //@ts-ignore
       username: updatedUser.username
   };
 
