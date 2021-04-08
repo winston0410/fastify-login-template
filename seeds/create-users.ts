@@ -2,7 +2,7 @@ import { Knex } from "knex";
 
 exports.seed = async function (knex: Knex) {
     // Deletes ALL existing entries
-    await knex('users').del();
+    await knex('users').truncate();
     //Create your own user info with the following website
     // https://bcrypt-generator.com/
     // https://jwt.io/
