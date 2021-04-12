@@ -4,7 +4,7 @@ import fastify, { FastifyRequest, FastifyReply, FastifyInstance, HookHandlerDone
 
 const app: FastifyInstance = fastify({
   logger: true,
-  http2: true,
+  // http2: true,
   // https: {
   //   key: '',
   //   cert: ''

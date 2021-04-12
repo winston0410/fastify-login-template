@@ -20,7 +20,7 @@ if (cluster.isMaster && process.env.NODE_ENV !== 'development') {
     });
 } else {
   // Run the server!
-  app.listen(8080, '0.0.0.0', function (err, address) {
+  app.listen(process.env.PORT as string, '0.0.0.0', function (err, address) {
     if (err) {
       //@ts-ignore
       app.log.error(err)

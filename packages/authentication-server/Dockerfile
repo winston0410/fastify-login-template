@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN apk add dumb-init && npm install pnpm -g
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-EXPOSE 8080
+EXPOSE $PORT
 
 FROM base as production
 ENV NODE_ENV=production
